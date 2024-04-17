@@ -1,0 +1,25 @@
+services:
+
+  app:
+    depends_on:
+      db:
+        condition: service_healthy
+    build: .
+
+  db:
+    image: mariadb:11
+    environment:
+      - MARIADB_ROOT_PASSWORD=password
+      - MARIADB_DATABASE=database
+    healthcheck:
+      interval: 5s
+      retries: 10
+      test:
+        [
+          "CMD",
+          "healthcheck.sh",
+          "--su-mysql",
+          "--connect",
+          "--innodb_initialized"
+        ]
+      timeout: 5s
