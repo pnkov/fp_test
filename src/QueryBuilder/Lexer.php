@@ -26,9 +26,12 @@ class Lexer extends AbstractLexer
     protected function getCatchablePatterns(): array
     {
         return [
+            "'(?:[^'\\\]|\\\.|'')*'",
+            '"(?:[^"\\\]|\\\.|"")*"',
+            '`(?:[^`\\\]|\\\.|``)*`',
             '\?[dfa#]',
             '[{}]',
-            '[^?{]+',
+            '[^?{\'"`]+',
         ];
     }
 
