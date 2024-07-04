@@ -11,4 +11,7 @@ $db = new App\FpDbTest\Database($mysqli);
 $test = new App\FpDbTest\DatabaseTest($db);
 $test->testBuildQuery();
 
+$testExt = new App\FpDbTest\DatabaseTestExtended($db);
+$testExt->testBuildQuery();
+
 exit('OK');
