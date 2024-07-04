@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\QueryBuilder;
 
-use App\QueryBuilder\Exception\UnsupportedSpecificator;
 use Doctrine\Common\Lexer\AbstractLexer;
 
 class Lexer extends AbstractLexer
@@ -27,7 +26,7 @@ class Lexer extends AbstractLexer
     protected function getCatchablePatterns(): array
     {
         return [
-            '\?[^ ]',
+            '\?[dfa#]',
             '[{}]',
             '[^?{]+',
         ];
@@ -39,7 +38,7 @@ class Lexer extends AbstractLexer
     }
 
     /**
-     * @throws \App\QueryBuilder\Exception\UnsupportedSpecificator
+     * @throws \Exception
      */
     protected function getType(string &$value): int
     {
@@ -53,7 +52,7 @@ class Lexer extends AbstractLexer
                 'f' => self::T_PARAM_FLOAT,
                 'a' => self::T_PARAM_ARRAY,
                 '#' => self::T_PARAM_IDENTIFIER,
-                default => throw new UnsupportedSpecificator($value[1], $this->token->position),
+                default => throw new \Exception('Should not be default'),
             };
         }
 
